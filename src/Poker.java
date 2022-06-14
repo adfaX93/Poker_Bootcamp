@@ -239,15 +239,21 @@ public class Poker {
         }while (bandera);
         return carta;
     }
+    public static void generarMano(Carta[] mano){
+        for (int i=0; i<mano.length;i++){
+            mano[i] =new Carta(cartaAleatorio());
+        }
+    }
     public static void main(String[] args) {
-        Carta [] arrayCartas = new  Carta[5];
+        Carta [] mano1 = new  Carta[5];
+        Carta [] mano2 = new  Carta[5];
         Poker mano = new Poker();
-        arrayCartas[0] =new Carta(cartaAleatorio());
-        arrayCartas[1] =new Carta(cartaAleatorio());
-        arrayCartas[2] =new Carta(cartaAleatorio());
-        arrayCartas[3] =new Carta(cartaAleatorio());
-        arrayCartas[4] =new Carta(cartaAleatorio());
-        System.out.println(mano.jugadas(arrayCartas));
-        imprimirArray(arrayCartas);
+        generarMano(mano1);
+        generarMano(mano2);
+        System.out.println(mano.jugadas(mano1));
+        System.out.println(mano.jugadas(mano2));
+
+        imprimirArray(mano1);
+        imprimirArray(mano2);
     }
 }
