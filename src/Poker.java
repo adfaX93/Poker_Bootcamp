@@ -46,10 +46,12 @@ public class Poker {
             }
         }
     }
-    public static void imprimirArray(Carta[] arreglo){
+    public static void imprimirMano(Carta[] arreglo){
+        System.out.print("Mano: ");
         for (int i = 0; i<arreglo.length; i++){
-            System.out.println(arreglo[i].valorPalo());
+            System.out.print("["+arreglo[i].valorPalo()+"] ");
         }
+        System.out.println();
     }
     //Método para ver si la mano es una escalera
     public static boolean escalera(int [] arrayAux){
@@ -202,7 +204,7 @@ public class Poker {
     }
     public static String cartaAleatorio(){
         int min = 1;
-        int max = 13;
+        int max = 12;
         String carta="";
         Random random = new Random();
         int valor = random.nextInt(max + min) + min;
@@ -253,7 +255,7 @@ public class Poker {
         System.out.println(mano.jugadas(mano1));
         System.out.println(mano.jugadas(mano2));
 
-        imprimirArray(mano1);
-        imprimirArray(mano2);
+        imprimirMano(mano1);
+        imprimirMano(mano2);
     }
 }
