@@ -158,7 +158,7 @@ public class Poker {
                 return "Trio";
             }
             if(arrayAux[i]==2){
-                for (int j = i; j<array.length; j++){
+                for (int j = 0; j<array.length; j++){
                    if (array[j]==2){
                        return "Par Doble";
                    }
@@ -237,17 +237,16 @@ public class Poker {
                 bandera = false;
             }
         }while (bandera);
-        System.out.println(carta);
         return carta;
     }
     public static void main(String[] args) {
         Carta [] arrayCartas = new  Carta[5];
         Poker mano = new Poker();
-        arrayCartas[0] =new Carta(cartaAleatorio());
-        arrayCartas[1] =new Carta(cartaAleatorio());
-        arrayCartas[2] =new Carta(cartaAleatorio());
-        arrayCartas[3] =new Carta(cartaAleatorio());
-        arrayCartas[4] =new Carta(cartaAleatorio());
+        arrayCartas[0] =new Carta("KS");
+        arrayCartas[1] =new Carta("3D");
+        arrayCartas[2] =new Carta("3S");
+        arrayCartas[3] =new Carta("KH");
+        arrayCartas[4] =new Carta("2S");
         System.out.println(mano.jugadas(arrayCartas));
         imprimirArray(arrayCartas);
     }
