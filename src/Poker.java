@@ -1,34 +1,49 @@
+import java.util.Arrays;
 import java.util.Random;
 
 public class Poker {
-    public static void ordenarArray(Carta[] arreglo, int [] arrayAux) {
+    public static void ordenarMano(Carta[] arreglo, int [] arrayAux) {
         for (int i = 0; i< arreglo.length; i++){
-            if (arreglo[i].valor.substring(0).equals("2")){
-                arrayAux[i]=2;
-            }else if (arreglo[i].valor.substring(0).equals("3")){
-                arrayAux[i]=3;
-            }else if (arreglo[i].valor.substring(0).equals("4")) {
-                arrayAux[i]=4;
-            }else if (arreglo[i].valor.substring(0).equals("5")){
-                arrayAux[i]=5;
-            }else if (arreglo[i].valor.substring(0).equals("6")){
-                arrayAux[i]=6;
-            }else if (arreglo[i].valor.substring(0).equals("7")){
-                arrayAux[i]=7;
-            }else if (arreglo[i].valor.substring(0).equals("8")){
-                arrayAux[i]=8;
-            }else if (arreglo[i].valor.substring(0).equals("9")){
-                arrayAux[i]=9;
-            }else if (arreglo[i].valor.substring(0).equals("A")){
-                arrayAux[i]=1;
-            }else if (arreglo[i].valor.substring(0).equals("T")){
-                arrayAux[i]=10;
-            }else if (arreglo[i].valor.substring(0).equals("J")){
-                arrayAux[i]=11;
-            }else if (arreglo[i].valor.substring(0).equals("Q")){
-                arrayAux[i]=12;
-            }else if (arreglo[i].valor.substring(0).equals("K")){
-                arrayAux[i]=13;
+            switch (arreglo[i].valor) {
+                case "2":
+                    arrayAux[i] = 2;
+                    break;
+                case "3":
+                    arrayAux[i] = 3;
+                    break;
+                case "4":
+                    arrayAux[i] = 4;
+                    break;
+                case "5":
+                    arrayAux[i] = 5;
+                    break;
+                case "6":
+                    arrayAux[i] = 6;
+                    break;
+                case "7":
+                    arrayAux[i] = 7;
+                    break;
+                case "8":
+                    arrayAux[i] = 8;
+                    break;
+                case "9":
+                    arrayAux[i] = 9;
+                    break;
+                case "A":
+                    arrayAux[i] = 1;
+                    break;
+                case "T":
+                    arrayAux[i] = 10;
+                    break;
+                case "J":
+                    arrayAux[i] = 11;
+                    break;
+                case "Q":
+                    arrayAux[i] = 12;
+                    break;
+                case "K":
+                    arrayAux[i] = 13;
+                    break;
             }
         }
         int aux;
@@ -47,9 +62,8 @@ public class Poker {
         }
     }
     public static void imprimirMano(Carta[] arreglo){
-        System.out.print("Mano: ");
-        for (int i = 0; i<arreglo.length; i++){
-            System.out.print("["+arreglo[i].valorPalo()+"] ");
+        for (Carta carta : arreglo) {
+            System.out.print("[" + carta.valorPalo() + "] ");
         }
         System.out.println();
     }
@@ -70,40 +84,30 @@ public class Poker {
                 }
             }
         }
-        if(bandera==4){
-            return true;
-        }else {
-            return false;
-        }
+        return bandera == 4;
     }
     //Método para ver si es color
     public static boolean color(Carta[] mano){
         int bandera = 0;
         String C = mano[0].valorPalo().substring(1);
-        for(int i=0; i<mano.length; i++){
-            if(mano[i].valorPalo().substring(1).equals(C)){
+        for (Carta carta : mano) {
+            if (carta.valorPalo().substring(1).equals(C)) {
                 bandera++;
             }
         }
-        if(bandera==5){
-            return true;
-        }else {
-            return false;
-        }
+        return bandera == 5;
     }
     //Método inicializar
     public static void inicializarArray(int [] array){
-        for(int i=0; i<array.length; i++){
-            array[i]=0;
-        }
+        Arrays.fill(array, 0);
     }
     //Método para ver si es poker
     public static boolean poker(int [] array){
         int [] arrayAux = new int[array.length];
         inicializarArray(arrayAux);
         for(int i=0; i<array.length; i++){
-            for(int j=0; j<array.length; j++){
-                if (array[i]==array[j]){
+            for (int k : array) {
+                if (array[i] == k) {
                     arrayAux[i]++;
                 }
             }
@@ -122,8 +126,8 @@ public class Poker {
         boolean bandera1=false;
         boolean bandera2=false;
         for(int i=0; i<array.length; i++){
-            for(int j=0; j<array.length; j++){
-                if (array[i]==array[j]){
+            for (int k : array) {
+                if (array[i] == k) {
                     arrayAux[i]++;
                 }
             }
@@ -136,55 +140,59 @@ public class Poker {
                 bandera2=true;
             }
         }
-        if(bandera1==true && bandera2==true){
-            return true;
-        }else{
-            return false;
-        }
+        return bandera1 && bandera2;
     }
     //Cartas Orden
-    public static String cartasOrden(int [] array){
+    public static String cartasOrden(int [] array, Carta [] mano){
         int [] arrayAux = new int[array.length];
         inicializarArray(arrayAux);
-        boolean bandera1=false;
-        boolean bandera2=false;
         for(int i=0; i<array.length; i++){
-            for(int j=0; j<array.length; j++){
-                if (array[i]==array[j]){
+            for (int k : array) {
+                if (array[i] == k) {
                     arrayAux[i]++;
                 }
             }
         }
-        for(int i=0; i<array.length; i++){
+        for (int i=0; i<array.length; i++){
             if(arrayAux[i]==3){
                 return "Trio";
             }
+        }
+        int doble=0;
+        for(int i=0; i<array.length; i++){
             if(arrayAux[i]==2){
-                for (int j = 0; j<array.length; j++){
-                   if (array[j]==2){
-                       return "Par Doble";
-                   }
-                }
+                doble++;
+            }
+        }
+        if(doble==4){
+            return "Par doble";
+        }
+        for(int i=0; i<array.length; i++){
+            if(arrayAux[i]==2){
                 return "Par";
             }
         }
-        if (array[0]==1){
-            return "Carta Alta: A";
-        }else if(array[4]==10){
-            return "Carta Alta: T";
-        }else if(array[4]==11){
-            return "Carta Alta: J";
-        } else if (array[4]==12) {
-            return "Carta Alta: Q";
-        }else if(array[4]==13){
-            return "Carta Alta: K";
-        }else {
-            return "Carta Alta:"+array[4];
+        return String.valueOf(cartaAlta(mano));
+    }
+    //Método carta alta
+    public static int cartaAlta(Carta [] mano) {
+        if (mano[0].valor.equals("A")) {
+            return 14;
+        } else if (mano[4].valor.equals("T")){
+            return 10;
+        }else if (mano[4].valor.equals("J")){
+            return 11;
+        }else if (mano[4].valor.equals("Q")){
+            return 12;
+        }else if (mano[4].valor.equals("K")){
+            return 13;
+        }else{
+            return  Integer.parseInt(mano[4].valor);
         }
     }
     String jugadas(Carta[] mano){
         int [] arrayAux = new int[5];
-        ordenarArray(mano, arrayAux);
+        ordenarMano(mano, arrayAux);
         boolean escalera=escalera(arrayAux);
         boolean color=color(mano);
         boolean poker=poker(arrayAux);
@@ -199,7 +207,7 @@ public class Poker {
         }else if (full(arrayAux)){
             return "Full";
         }else{
-            return (cartasOrden(arrayAux));
+            return (cartasOrden(arrayAux,mano));
         }
     }
     public static String cartaAleatorio(){
@@ -223,7 +231,7 @@ public class Poker {
         }
         max = 3;
         valor = random.nextInt(max + min) + min;
-        boolean bandera = true;
+        boolean bandera;
         do {
             if(valor==1){
                 carta = carta.concat("S");
@@ -234,7 +242,7 @@ public class Poker {
             }else if (valor==3) {
                 carta = carta.concat("H");
                 bandera = false;
-            }else if (valor==4) {
+            }else {
                 carta = carta.concat("D");
                 bandera = false;
             }
@@ -252,10 +260,130 @@ public class Poker {
         Poker mano = new Poker();
         generarMano(mano1);
         generarMano(mano2);
-        System.out.println(mano.jugadas(mano1));
-        System.out.println(mano.jugadas(mano2));
-
+        if (mano.jugadas(mano1).equals("Escalera Color") || mano.jugadas(mano2).equals("Escalera Color")){
+            if (mano.jugadas(mano1).equals("Escalera Color") && mano.jugadas(mano2).equals("Escalera Color")){
+                if (cartaAlta(mano1)>cartaAlta(mano2)){
+                    System.out.println("Gana Mano 1, Escalera Color, carta alta: "+cartaAlta(mano1));
+                }else {
+                    System.out.println("Gana Mano 2, Escalera Color, carta alta: "+cartaAlta(mano2));
+                }
+            }else {
+                if (mano.jugadas(mano1).equals("Escalera Color")){
+                    System.out.println("Gana Mano 1, Escalera Color");
+                }else {
+                    System.out.println("Gana Mano 2, Escalera Color");
+                }
+            }
+        }else if (mano.jugadas(mano1).equals("Color")||mano.jugadas(mano2).equals("Color")){
+            if (mano.jugadas(mano1).equals("Color") && mano.jugadas(mano2).equals("Color")){
+                if (cartaAlta(mano1)>cartaAlta(mano2)){
+                    System.out.println("Gana Mano 1, Color, carta alta: "+cartaAlta(mano1));
+                }else {
+                    System.out.println("Gana Mano 2, Color, carta alta: "+cartaAlta(mano2));
+                }
+            }else {
+                if (mano.jugadas(mano1).equals("Color")){
+                    System.out.println("Gana Mano 1, Color");
+                }else {
+                    System.out.println("Gana Mano 2, Color");
+                }
+            }
+        }else if (mano.jugadas(mano1).equals("Escalera")||mano.jugadas(mano2).equals("Escalera")){
+            if (mano.jugadas(mano1).equals("Escalera") && mano.jugadas(mano2).equals("Escalera")){
+                if (cartaAlta(mano1)>cartaAlta(mano2)){
+                    System.out.println("Gana Mano 1, Escalera, carta alta: "+cartaAlta(mano1));
+                }else {
+                    System.out.println("Gana Mano 2, Escalera, carta alta: "+cartaAlta(mano2));
+                }
+            }else {
+                if (mano.jugadas(mano1).equals("Escalera")){
+                    System.out.println("Gana Mano 1, Escalera");
+                }else {
+                    System.out.println("Gana Mano 2, Escalera");
+                }
+            }
+        }else if (mano.jugadas(mano1).equals("Poker")||mano.jugadas(mano2).equals("Poker")){
+            if (mano.jugadas(mano1).equals("Poker") && mano.jugadas(mano2).equals("Poker")){
+                if (cartaAlta(mano1)>cartaAlta(mano2)){
+                    System.out.println("Gana Mano 1, Poker, carta alta: "+cartaAlta(mano1));
+                }else {
+                    System.out.println("Gana Mano 2, Poker, carta alta: "+cartaAlta(mano2));
+                }
+            }else {
+                if (mano.jugadas(mano1).equals("Poker")){
+                    System.out.println("Gana Mano 1, Poker");
+                }else {
+                    System.out.println("Gana Mano 2, Poker");
+                }
+            }
+        }else if (mano.jugadas(mano1).equals("Full")||mano.jugadas(mano2).equals("Full")){
+            if (mano.jugadas(mano1).equals("Full") && mano.jugadas(mano2).equals("Full")){
+                if (cartaAlta(mano1)>cartaAlta(mano2)){
+                    System.out.println("Gana Mano 1, Full, carta alta: "+cartaAlta(mano1));
+                }else {
+                    System.out.println("Gana Mano 2, Full, carta alta: "+cartaAlta(mano2));
+                }
+            }else {
+                if (mano.jugadas(mano1).equals("Full")){
+                    System.out.println("Gana Mano 1, Full");
+                }else {
+                    System.out.println("Gana Mano 2, Full");
+                }
+            }
+        }else if (mano.jugadas(mano1).equals("Trio")||mano.jugadas(mano2).equals("Trio")){
+            if (mano.jugadas(mano1).equals("Trio") && mano.jugadas(mano2).equals("Trio")){
+                if (cartaAlta(mano1)>cartaAlta(mano2)){
+                    System.out.println("Gana Mano 1, Trio, carta alta: "+cartaAlta(mano1));
+                }else {
+                    System.out.println("Gana Mano 2, Trio, carta alta: "+cartaAlta(mano2));
+                }
+            }else {
+                if (mano.jugadas(mano1).equals("Trio")){
+                    System.out.println("Gana Mano 1, Trio");
+                }else {
+                    System.out.println("Gana Mano 2, Trio");
+                }
+            }
+        }else if (mano.jugadas(mano1).equals("Par doble")||mano.jugadas(mano2).equals("Par doble")){
+            if (mano.jugadas(mano1).equals("Par doble") && mano.jugadas(mano2).equals("Par doble")){
+                if (cartaAlta(mano1)>cartaAlta(mano2)){
+                    System.out.println("Gana Mano 1, Par doble, carta alta: "+cartaAlta(mano1));
+                }else {
+                    System.out.println("Gana Mano 2, Par doble, carta alta: "+cartaAlta(mano2));
+                }
+            }else {
+                if (mano.jugadas(mano1).equals("Par doble")){
+                    System.out.println("Gana Mano 1, Par doble");
+                }else {
+                    System.out.println("Gana Mano 2, Par doble");
+                }
+            }
+        }else if (mano.jugadas(mano1).equals("Par")||mano.jugadas(mano2).equals("Par")){
+            if (mano.jugadas(mano1).equals("Par") && mano.jugadas(mano2).equals("Par")){
+                if (cartaAlta(mano1)>cartaAlta(mano2)){
+                    System.out.println("Gana Mano 1, Par, carta alta: "+cartaAlta(mano1));
+                }else {
+                    System.out.println("Gana Mano 2, Par, carta alta: "+cartaAlta(mano2));
+                }
+            }else {
+                if (mano.jugadas(mano1).equals("Par")){
+                    System.out.println("Gana Mano 1, Par");
+                }else {
+                    System.out.println("Gana Mano 2, Par");
+                }
+            }
+        }else{
+            if (cartaAlta(mano1)==cartaAlta(mano2)){
+                System.out.println("Empate!");
+            }else if (cartaAlta(mano1)>cartaAlta(mano2)){
+                System.out.println("Gana Mano 1, Carta alta: "+cartaAlta(mano1));
+            }else {
+                System.out.println("Gana Mano 2, Carta alta: "+cartaAlta(mano2));
+            }
+        }
+        System.out.print("Mano 1: ");
         imprimirMano(mano1);
+        System.out.print("Mano 2: ");
         imprimirMano(mano2);
     }
 }
