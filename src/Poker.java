@@ -242,11 +242,11 @@ public class Poker {
     public static void main(String[] args) {
         Carta [] arrayCartas = new  Carta[5];
         Poker mano = new Poker();
-        arrayCartas[0] =new Carta("KS");
-        arrayCartas[1] =new Carta("3D");
-        arrayCartas[2] =new Carta("3S");
-        arrayCartas[3] =new Carta("KH");
-        arrayCartas[4] =new Carta("2S");
+        arrayCartas[0] =new Carta(cartaAleatorio());
+        arrayCartas[1] =new Carta(cartaAleatorio());
+        arrayCartas[2] =new Carta(cartaAleatorio());
+        arrayCartas[3] =new Carta(cartaAleatorio());
+        arrayCartas[4] =new Carta(cartaAleatorio());
         System.out.println(mano.jugadas(arrayCartas));
         imprimirArray(arrayCartas);
     }
